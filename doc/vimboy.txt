@@ -1,0 +1,42 @@
+*vimboy.txt* Dead simple personal wiki
+
+                                                            *vimboy*
+
+With Vimboy, you can create a personal, local wiki. Each page in your wiki
+will be represented by a file in your Vimboy base dir. Your pages are linked
+automatically.
+
+                                                            *vimboy-installation*
+
+=================================================================================
+QUICKSTART                                                      *vimboy-quickstart*
+
+1. By default, your wiki pages will live in $HOME/wiki/. Don't like it?
+Change the path in ~/.vim/ftdetect/vimboy.vim. You can also change this later.
+
+2. Create this directory if it doesn't exist.
+
+3. Open a new file called "Recipes" inside it.
+
+4. Write down a list of your favourite meals. You are free to format your list
+any way you want.
+
+5. Now, let's create some new pages. Put the cursor on your first recipe. If
+it's more than one word, visually select it. Press |<CR>|. The new page is
+opened in a new tab.
+
+6. Write your recipe, save and close it. When you look at the first page
+again, you'll notice that the recipe is now linked. Put your cursor on a link
+and press |<CR>| to open the recipe again.
+
+==================================================================================
+CONFIGURATION                                               *vimboy-configuration*
+
+To set Vimboy's base dir, edit ~/.vim/ftdetect/vimboy.vim.
+
+==================================================================================
+USAGE                                                       *vimboy-usage*
+
+To create a new page, visually select one or more words and press <CR>.
+
+To jump to an existing page, put the cursor over the link and press <CR>.

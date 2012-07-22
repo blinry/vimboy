@@ -1,42 +1,42 @@
-*vimboy.txt* Dead simple personal wiki
+*vimboy.txt*  For Vim version 7.0 or later.                           *vimboy*
 
-                                                            *vimboy*
+Vimboy - a dead simple personal wiki plugin~
 
-With Vimboy, you can create a personal, local wiki. Each page in your wiki
-will be represented by a file in your Vimboy base dir. Your pages are linked
-automatically.
+With Vimboy, you can create personal, local wikis. Files that have the
+"vimboy" 'filetype' set, link to files in the same directory.
+In autolink-mode, this happens as soon as a filename appears in the text.
+Otherwise, the filename needs to be surrounded by [square brackets].
 
-                                                            *vimboy-installation*
+The name stems from GNOME's Tomboy, which has similar features.
 
-=================================================================================
-QUICKSTART                                                      *vimboy-quickstart*
+==============================================================================
+CONFIGURATION                                           *vimboy-configuration*
 
-1. By default, your wiki pages will live in $HOME/wiki/. Don't like it?
-Change the path in ~/.vim/ftdetect/vimboy.vim. You can also change this later.
+It's convenient to declare your wiki directories in your vimrc like this: >
+    au bufread,bufnewfile ~/path/to/wiki/* set ft=vimboy
 
-2. Create this directory if it doesn't exist.
+Set *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
 
-3. Open a new file called "Recipes" inside it.
+==============================================================================
+USAGE                                                           *vimboy-usage*
 
-4. Write down a list of your favourite meals. You are free to format your list
-any way you want.
+To start a wiki, create a new file in the wiki directory, like "Main Page".
 
-5. Now, let's create some new pages. Put the cursor on your first recipe. If
-it's more than one word, visually select it. Press |<CR>|. The new page is
-opened in a new tab.
+To create a new page in autolink-mode, visually select one or more words and
+press <CR>. In bracket-mode, simply follow the deadlink.
 
-6. Write your recipe, save and close it. When you look at the first page
-again, you'll notice that the recipe is now linked. Put your cursor on a link
-and press |<CR>| to open the recipe again.
+To follow a link, put the cursor on it and press <CR>, or double-click it. The
+linked page will open in a new tab.
 
-==================================================================================
-CONFIGURATION                                               *vimboy-configuration*
+To delete a page, use <Leader>wd (think "wiki delete").
 
-To set Vimboy's base dir, edit ~/.vim/ftdetect/vimboy.vim.
+==============================================================================
+TIPS                                                             *vimboy-tips*
 
-==================================================================================
-USAGE                                                       *vimboy-usage*
+- Filename completion (|i_CTRL-X_CTRL-F|) is awesome for completing links!
+- Use hard- or softlinks for page aliases.
+- How you format your text is up to you!
+- Put your wiki directory under version control to get a history and make it
+  shareable!
 
-To create a new page, visually select one or more words and press <CR>.
-
-To jump to an existing page, put the cursor over the link and press <CR>.
+ vim:tw=78:et:ft=help:norl:

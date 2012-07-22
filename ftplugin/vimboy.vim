@@ -1,4 +1,4 @@
-" Vimboy - a simple wiki plugin for Vim
+" Vimboy - a dead simple personal wiki plugin
 " Copyright (C) 2011  Sebastian Morr
 " 
 " This program is free software: you can redistribute it and/or modify

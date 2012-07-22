@@ -17,6 +17,9 @@ It's convenient to declare your wiki directories in your vimrc like this: >
 
 Set *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
 
+Set *g:vimboy_hl_deadlinks* to 1 to highlight deadlinks. Works only in
+bracket-mode. Default is 0.
+
 ==============================================================================
 USAGE                                                           *vimboy-usage*
 

@@ -17,6 +17,7 @@ endif
 let s:loaded_vimboy = 1
 
 let g:vimboy_autolink = 0
+let g:vimboy_hl_deadlinks = 0
 
 fu s:InitVimboy()
 
@@ -40,7 +41,9 @@ fu s:UpdateLinksInThisTab()
     syntax clear
     syntax case match
 
-    "syntax match Error /\[[^\]]*\]/
+    if g:vimboy_hl_deadlinks && ! g:vimboy_autolink
+        syntax match Error /\[[^\]]*\]/
+    endif
 
     let l:files = split(glob("*"),'[\r\n]\+')
     for l:file in l:files

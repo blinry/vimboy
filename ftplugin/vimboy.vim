@@ -20,7 +20,6 @@ let g:vimboy_autolink = 0
 let g:vimboy_hl_deadlinks = 0
 
 fu s:InitVimboy()
-
     let g:vimboy_dir = expand("%:p:h")."/"
     execute "cd ".g:vimboy_dir
 
@@ -38,6 +37,10 @@ fu s:UpdateLinks()
 endf
 
 fu s:UpdateLinksInThisTab()
+    if &filetype != "vimboy"
+        return
+    endif
+
     syntax clear
     syntax case match
 
@@ -72,6 +75,7 @@ endf
 
 fu s:OpenPage(name)
     execute "tabe ".a:name
+    set ft=vimboy
 endf
 
 " Most. Ugly. Function. I. Have. Ever. Written.

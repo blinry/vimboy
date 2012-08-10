@@ -17,8 +17,8 @@ It's convenient to declare your wiki directories in your vimrc like this: >
 
 Set *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
 
-Set *g:vimboy_hl_deadlinks* to 1 to highlight deadlinks. Works only in
-bracket-mode. Default is 0.
+Set *g:vimboy_hl_deadlinks* to 1 to highlight deadlinks. Works only if
+autolink-mode is off. Default is 0.
 
 ==============================================================================
 USAGE                                                           *vimboy-usage*
@@ -26,7 +26,7 @@ USAGE                                                           *vimboy-usage*
 To start a wiki, create a new file in the wiki directory, like "Main Page".
 
 To create a new page in autolink-mode, visually select one or more words and
-press <CR>. In bracket-mode, simply follow the deadlink.
+press <CR>. In bracket-mode, simply follow the deadlink:
 
 To follow a link, put the cursor on it and press <CR>, or double-click it. The
 linked page will open in a new tab.

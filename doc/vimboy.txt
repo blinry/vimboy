@@ -5,14 +5,14 @@ Vimboy - a dead simple personal wiki plugin~
 With Vimboy, you can create personal, local wikis. Files that have the
 "vimboy" 'filetype' set, link to files in the same directory.
 In autolink-mode, this happens as soon as a filename appears in the text.
-Otherwise, the filename needs to be surrounded by [square brackets].
+Otherwise, surround the filenames with [square brackets].
 
 The name stems from GNOME's Tomboy, which has similar features.
 
 ==============================================================================
 CONFIGURATION                                           *vimboy-configuration*
 
-It's convenient to declare your wiki directories in your vimrc like this: >
+It is convenient to declare your wiki directories in your vimrc like this: >
     au bufread,bufnewfile ~/path/to/wiki/* set ft=vimboy
 
 Set *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
@@ -26,7 +26,7 @@ USAGE                                                           *vimboy-usage*
 To start a wiki, create a new file in the wiki directory, like "Main Page".
 
 To create a new page in autolink-mode, visually select one or more words and
-press <CR>. In bracket-mode, simply follow the deadlink:
+press <CR>. In bracket-mode, just follow the deadlink:
 
 To follow a link, put the cursor on it and press <CR>, or double-click it. The
 linked page will open in a new tab.

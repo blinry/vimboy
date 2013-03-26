@@ -2,10 +2,10 @@
 
 Vimboy - a dead simple personal wiki plugin~
 
-With Vimboy, you can create personal, local wikis. If you set the "vimboy"
-'filetype' for a buffer, all file names that appear in the buffer link to the
-respective files in the same directory.  In autolink-mode, this happens as
-soon as a filename appears in the text.  Otherwise, surround the filenames
+With Vimboy, you can create personal, local wikis. In buffers with the
+'filetype' "vimboy", all file names that appear in the buffer link to the
+respective files in the same directory. In autolink-mode, this happens as
+soon as a filename appears in the text. Otherwise, surround the filenames
 with [square brackets].
 
 The name stems from GNOME's Tomboy, which has similar features.
@@ -18,8 +18,8 @@ It is convenient to declare your wiki directories in your vimrc like this: >
 
 Set the variable *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
 
-Set the variable *g:vimboy_hl_deadlinks* to 1 to highlight dead links, i.e.
-links to non-existing files. Works only if autolink-mode is off. Default is 0.
+Set the variable *g:vimboy_hl_deadlinks* to 1 to highlight dead links (links
+to non-existing files). Works only if autolink-mode is off. Default is 0.
 
 ==============================================================================
 USAGE                                                           *vimboy-usage*
@@ -27,13 +27,14 @@ USAGE                                                           *vimboy-usage*
 To start a wiki, create a new file in your wiki directory, like "Main Page".
 
 To create a new page in autolink-mode, visually select one or more words and
-press <CR> in Normal mode.  In bracket-mode, just create a dead link by
-surrounding the new page name with brackets, then follow the newly-created link.
+press <CR>, or press <CR> on one word in Normal mode. In bracket-mode, just
+create a dead link by surrounding the new page name with brackets, then follow
+the newly-created link.
 
 To follow a link, put the cursor on it and press <CR> in Normal mode, or
-double-click it.  The linked page will open in a new tab.
+double-click it. The linked page will open in a new tab.
 
-To delete a page, use <Leader>wd (by default: \wd. Think of "wiki delete").
+To delete a page, use <Leader>wd (by default: \wd - think of "wiki delete").
 
 ==============================================================================
 TIPS                                                             *vimboy-tips*

@@ -16,8 +16,12 @@ if exists("s:loaded_vimboy")
 endif
 let s:loaded_vimboy = 1
 
-let g:vimboy_autolink = 0
-let g:vimboy_hl_deadlinks = 0
+if !exists("g:vimboy_autolink")
+    let g:vimboy_autolink = 0
+endif
+if !exists("g:vimboy_hl_deadlinks")
+    let g:vimboy_hl_deadlinks = 0
+endif
 
 fu s:InitVimboy()
     let g:vimboy_dir = expand("%:p:h")."/"

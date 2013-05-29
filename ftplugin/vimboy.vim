@@ -86,16 +86,15 @@ endf
 
 fu s:OpenPage(name)
     execute "tabe ".a:name
-    set ft=vimboy
 endf
 
 fu s:OpenLinkUnderCursor()
     let s:bak=@"
+    normal! mc
 
     if g:vimboy_autolink
         if s:OnLink()
-            normal! mc 
-
+            " Get length of current line
             normal! $
             let lineLength = col(".")
             normal! `c
@@ -120,12 +119,12 @@ fu s:OpenLinkUnderCursor()
                     break
                 endif
             endwhile
-            normal! mb`av`by
+            normal! mb`av`by`c
         else
-            normal! yiw
+            normal! yiw`c
         endif
     else
-        normal! yi[
+        normal! yi[`c
     endif
 
     call s:OpenPage(fnameescape(@"))

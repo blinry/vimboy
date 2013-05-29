@@ -16,7 +16,7 @@ CONFIGURATION                                           *vimboy-configuration*
 It is convenient to declare your wiki directories in your vimrc like this: >
     au bufread,bufnewfile ~/path/to/wiki/* set ft=vimboy
 
-Set the variable *g:vimboy_autolink* to 1 to enable autolink-mode. Default is 0.
+Set the variable *g:vimboy_autolink* to 0 to disable autolink-mode. Default is 1.
 
 Set the variable *g:vimboy_hl_deadlinks* to 1 to highlight dead links (links
 to non-existing files). Works only if autolink-mode is off. Default is 0.

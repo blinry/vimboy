@@ -17,7 +17,7 @@ endif
 let s:loaded_vimboy = 1
 
 if !exists("g:vimboy_autolink")
-    let g:vimboy_autolink = 0
+    let g:vimboy_autolink = 1
 endif
 if !exists("g:vimboy_hl_deadlinks")
     let g:vimboy_hl_deadlinks = 0

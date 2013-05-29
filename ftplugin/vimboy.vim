@@ -1,21 +1,23 @@
 " Vimboy - a dead simple personal wiki plugin
-" Copyright (C) 2011  Sebastian Morr
-" 
+" Copyright (C) 2011-2013 Sebastian Morr <sebastian@morr.cc>
+"
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
 " the Free Software Foundation, either version 3 of the License, or
 " (at your option) any later version.
-" 
+"
 " This program is distributed in the hope that it will be useful,
 " but WITHOUT ANY WARRANTY; without even the implied warranty of
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 
+" Only process this script once
 if exists("s:loaded_vimboy")
     finish
 endif
 let s:loaded_vimboy = 1
 
+" By default, enable autolinks and disable deadlink highlighting
 if !exists("g:vimboy_autolink")
     let g:vimboy_autolink = 1
 endif
@@ -27,6 +29,7 @@ fu s:InitVimboy()
     let g:vimboy_dir = expand("%:p:h")."/"
     execute "cd ".g:vimboy_dir
 
+    " Update known links upon writing and when 'syntax' option is set
     au BufWritePost * call <SID>UpdateLinks()
     au Syntax vimboy call <SID>UpdateLinks()
 
@@ -34,12 +37,14 @@ fu s:InitVimboy()
     call s:DefineMappings()
 endf
 
+" Update links in all 'vimboy' tabs
 fu s:UpdateLinks()
     let currTab = tabpagenr()
     tabdo call s:UpdateLinksInThisTab()
     execute "tabn ".currTab
 endf
 
+" Syntax highlight each filename of the current directory
 fu s:UpdateLinksInThisTab()
     if &filetype != "vimboy"
         return
@@ -71,6 +76,8 @@ fu s:DefineMappings()
 endf
 
 fu s:OpenVisualSelection()
+    " Works by yanking the current visual selection, opening the unnamed
+    " register, and restoring it afterwards
     let s:bak=@"
     normal! gvy
     call s:OpenPage(fnameescape(@"))
@@ -81,8 +88,6 @@ fu s:OpenPage(name)
     execute "tabe ".a:name
     set ft=vimboy
 endf
-
-" Most. Ugly. Function. I. Have. Ever. Written.
 
 fu s:OpenLinkUnderCursor()
     let s:bak=@"
@@ -95,6 +100,8 @@ fu s:OpenLinkUnderCursor()
             let lineLength = col(".")
             normal! `c
 
+            " Go left until not on link anymore, set mark a,
+            " restore cursor position
             while col(".") > 1
                 normal! h
                 if !s:OnLink()
@@ -104,6 +111,8 @@ fu s:OpenLinkUnderCursor()
             endwhile
             normal! ma`c
 
+            " Same thing going right, setting mark b, yank from a to b
+            " afterwards
             while col(".") < lineLength
                 normal! l
                 if !s:OnLink()
@@ -129,6 +138,7 @@ fu DeletePage()
     do Syntax vimboy
 endf
 
+" Is the cursor currently on a link?
 fu s:OnLink()
     let stack = synstack(line("."), col("."))
     return !empty(stack)

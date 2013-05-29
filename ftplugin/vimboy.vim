@@ -27,7 +27,6 @@ endif
 
 fu s:InitVimboy()
     let g:vimboy_dir = expand("%:p:h")."/"
-    execute "cd ".g:vimboy_dir
 
     " Update known links upon writing and when 'syntax' option is set
     au BufWritePost * call <SID>UpdateLinks()
@@ -57,7 +56,9 @@ fu s:UpdateLinksInThisTab()
         syntax match Error /\[[^\]]*\]/
     endif
 
+    execute "cd ".g:vimboy_dir
     let l:files = split(glob("*"),'[\r\n]\+')
+    execute "cd -"
     for l:file in l:files
         if g:vimboy_autolink
             execute 'syntax match Underlined /\v<('.l:file.')\ze.?>/'
@@ -85,7 +86,7 @@ fu s:OpenVisualSelection()
 endf
 
 fu s:OpenPage(name)
-    execute "tabe ".a:name
+    execute "tabe ".g:vimboy_dir."/".a:name
 endf
 
 fu s:OpenLinkUnderCursor()

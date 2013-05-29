@@ -44,5 +44,7 @@ TIPS                                                             *vimboy-tips*
 - How you format your text is up to you!
 - Put your wiki directory under version control to get a history and make it
   shareable!
+- Vimboy's sister project "RoboBoy" lets you sync your wiki with Android
+  devices: https://github.com/blinry/roboboy
 
  vim:tw=78:et:ft=help:norl:

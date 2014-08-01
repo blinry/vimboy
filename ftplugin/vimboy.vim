@@ -60,11 +60,13 @@ fu s:UpdateLinksInThisTab()
     let l:files = split(glob("*"),'[\r\n]\+')
     execute "cd -"
     for l:file in l:files
-        if g:vimboy_autolink
-            execute 'syntax match Underlined /\V'.escape(l:file, '/\').'\ze\.\?\>/'
-        else
-            execute 'syntax match Underlined /\['.l:file.'\]/'
-        endif
+        if l:file != expand('%')
+            if g:vimboy_autolink
+                execute 'syntax match Underlined /\V'.escape(l:file, '/\').'\ze\.\?\>/'
+            else
+                execute 'syntax match Underlined /\['.l:file.'\]/'
+            endif
+        end
     endfor
 endf
 

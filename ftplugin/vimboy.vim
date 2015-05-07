@@ -49,7 +49,7 @@ fu s:UpdateLinksInThisTab()
         return
     endif
 
-    syntax clear
+    syntax clear Underlined
     syntax case match
 
     if g:vimboy_hl_deadlinks && ! g:vimboy_autolink

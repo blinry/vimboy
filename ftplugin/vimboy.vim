@@ -62,9 +62,9 @@ fu s:UpdateLinksInThisTab()
     for l:file in l:files
         if l:file != expand('%')
             if g:vimboy_autolink
-                execute 'syntax match Underlined /\V'.escape(l:file, '/\').'\ze\.\?\>/'
+                execute 'syntax match Underlined /\c\V\<'.escape(l:file, '/\').'/'
             else
-                execute 'syntax match Underlined /\['.l:file.'\]/'
+                execute 'syntax match Underlined /\c\['.l:file.'\]/'
             endif
         end
     endfor
@@ -83,12 +83,23 @@ fu s:OpenVisualSelection()
     " register, and restoring it afterwards
     let s:bak=@"
     normal! gvy
-    call s:OpenPage(fnameescape(@"))
+    call s:OpenPage(@")
     let @"=s:bak
 endf
 
 fu s:OpenPage(name)
-    execute "tabe ".g:vimboy_dir."/".a:name
+    if !filereadable(g:vimboy_dir."/".a:name)
+        execute "cd ".g:vimboy_dir
+        let l:files = split(glob("*"),'[\r\n]\+')
+        execute "cd -"
+        for l:file in l:files
+            if l:file =~ '\V\^'.escape(a:name, '/\').'\$'
+                execute "tabe ".g:vimboy_dir."/".fnameescape(l:file)
+                return
+            endif
+        endfor
+    endif
+    execute "tabe ".g:vimboy_dir."/".fnameescape(a:name)
 endf
 
 fu s:OpenLinkUnderCursor()
@@ -130,7 +141,7 @@ fu s:OpenLinkUnderCursor()
         normal! yi[`c
     endif
 
-    call s:OpenPage(fnameescape(@"))
+    call s:OpenPage(@")
     let @"=s:bak
 endf
 

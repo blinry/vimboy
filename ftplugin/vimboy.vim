@@ -45,7 +45,7 @@ endf
 
 " Syntax highlight each filename of the current directory
 fu s:UpdateLinksInThisTab()
-    if &filetype != "vimboy"
+    if &filetype !~ "vimboy"
         return
     endif
 

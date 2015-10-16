@@ -13,6 +13,7 @@
 
 " Only process this script once
 if exists("s:loaded_vimboy")
+    call s:InitBuffer()
     finish
 endif
 let s:loaded_vimboy = 1
@@ -25,57 +26,24 @@ if !exists("g:vimboy_hl_deadlinks")
     let g:vimboy_hl_deadlinks = 0
 endif
 
-fu s:InitVimboy()
-    let g:vimboy_dir = expand("%:p:h")."/"
+fu s:InitBuffer()
+    let b:vimboy_dir = expand("%:p:h")."/"
 
-    " Update known links upon writing and when 'syntax' option is set
-    au BufWritePost * call <SID>UpdateLinks()
-    au Syntax vimboy call <SID>UpdateLinks()
+    " When writing a file, refresh syntax in all windows,
+    " because the links might have changed
+    au BufWritePost <buffer> call s:UpdateLinks()
 
-    do Syntax vimboy
-    call s:DefineMappings()
+    " Define mappings
+    vnoremap <buffer> <silent> <CR> :call <SID>OpenVisualSelection()<CR>
+    nnoremap <buffer> <silent> <CR> :call <SID>OpenLinkUnderCursor()<CR>
+    noremap <buffer> <silent> <2-LeftMouse> :call <SID>OpenLinkUnderCursor()<CR>
+    nnoremap <buffer> <silent> <Leader>wd :call DeletePage()<CR>
 endf
 
-" Update links in all 'vimboy' tabs
 fu s:UpdateLinks()
-    let currTab = tabpagenr()
-    tabdo call s:UpdateLinksInThisTab()
-    execute "tabn ".currTab
-endf
-
-" Syntax highlight each filename of the current directory
-fu s:UpdateLinksInThisTab()
-    if &filetype !~ "vimboy"
-        return
-    endif
-
-    syntax clear Underlined
-    syntax case match
-
-    if g:vimboy_hl_deadlinks && ! g:vimboy_autolink
-        syntax match Error /\[[^\]]*\]/
-    endif
-
-    execute "cd ".g:vimboy_dir
-    let l:files = split(glob("*"),'[\r\n]\+')
-    execute "cd -"
-    for l:file in l:files
-        if l:file != expand('%')
-            if g:vimboy_autolink
-                execute 'syntax match Underlined /\c\V\<'.escape(l:file, '/\').'/'
-            else
-                execute 'syntax match Underlined /\c\['.l:file.'\]/'
-            endif
-        end
-    endfor
-endf
-
-fu s:DefineMappings()
-    vnoremap <CR> :call <SID>OpenVisualSelection()<CR>
-    nnoremap <CR> :call <SID>OpenLinkUnderCursor()<CR>
-    noremap <2-LeftMouse> :call <SID>OpenLinkUnderCursor()<CR>
-
-    nnoremap <Leader>wd :call DeletePage()<CR>
+    let s:currTab = tabpagenr()
+    tabdo windo do syntax
+    execute "tabn ".s:currTab
 endf
 
 fu s:OpenVisualSelection()
@@ -88,18 +56,18 @@ fu s:OpenVisualSelection()
 endf
 
 fu s:OpenPage(name)
-    if !filereadable(g:vimboy_dir."/".a:name)
-        execute "cd ".g:vimboy_dir
-        let l:files = split(glob("*"),'[\r\n]\+')
+    if !filereadable(b:vimboy_dir."/".a:name)
+        execute "cd ".b:vimboy_dir
+        let s:files = split(glob("*"),'[\r\n]\+')
         execute "cd -"
-        for l:file in l:files
-            if l:file =~ '\V\^'.escape(a:name, '/\').'\$'
-                execute "tabe ".g:vimboy_dir."/".fnameescape(l:file)
+        for s:file in s:files
+            if s:file =~ '\V\^'.escape(a:name, '/\').'\$'
+                execute "tabe ".b:vimboy_dir."/".fnameescape(s:file)
                 return
             endif
         endfor
     endif
-    execute "tabe ".g:vimboy_dir."/".fnameescape(a:name)
+    execute "tabe ".b:vimboy_dir."/".fnameescape(a:name)
 endf
 
 fu s:OpenLinkUnderCursor()
@@ -148,7 +116,7 @@ endf
 fu DeletePage()
     call delete(expand('%'))
     q!
-    do Syntax vimboy
+    do syntax
 endf
 
 " Is the cursor currently on a link?
@@ -157,4 +125,4 @@ fu s:OnLink()
     return !empty(stack)
 endf
 
-call s:InitVimboy()
+call s:InitBuffer()

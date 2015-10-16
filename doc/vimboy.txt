@@ -41,7 +41,8 @@ TIPS                                                             *vimboy-tips*
 
 - Filename completion (|i_CTRL-X_CTRL-F|) is awesome for completing links!
 - Use hard- or softlinks for page aliases.
-- How you format your text is up to you!
+- How you format your text is up to you! If you like to use Markdown, you can
+  set the 'filetype' to "markdown.vimboy" to get syntax highlighting for both.
 - Put your wiki directory under version control to get a history and make it
   shareable!
 - Vimboy's sister project "RoboBoy" lets you sync your wiki with Android

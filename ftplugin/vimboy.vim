@@ -12,11 +12,11 @@
 " GNU General Public License for more details.
 
 " Only process this script once
-if exists("s:loaded_vimboy")
+if exists("g:loaded_vimboy")
     call s:InitBuffer()
     finish
 endif
-let s:loaded_vimboy = 1
+let g:loaded_vimboy = 1
 
 " By default, enable autolinks and disable deadlink highlighting
 if !exists("g:vimboy_autolink")
@@ -28,6 +28,7 @@ endif
 
 fu s:InitBuffer()
     let b:vimboy_dir = expand("%:p:h")."/"
+    call s:UpdateLinks()
 
     " When writing a file, refresh syntax in all windows,
     " because the links might have changed

@@ -1,5 +1,5 @@
 " Vimboy - a dead simple personal wiki plugin
-" Copyright (C) 2011-2013 Sebastian Morr <sebastian@morr.cc>
+" Copyright (C) 2011-2019 Sebastian Morr <sebastian@morr.cc>
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -18,12 +18,15 @@ if exists("g:loaded_vimboy")
 endif
 let g:loaded_vimboy = 1
 
-" By default, enable autolinks and disable deadlink highlighting
+" By default, enable autolinks, disable deadlinks, and disable tab mode
 if !exists("g:vimboy_autolink")
     let g:vimboy_autolink = 1
 endif
 if !exists("g:vimboy_hl_deadlinks")
     let g:vimboy_hl_deadlinks = 0
+endif
+if !exists("g:vimboy_tabmode")
+    let g:vimboy_tabmode = 0
 endif
 
 fu s:InitBuffer()
@@ -42,9 +45,7 @@ fu s:InitBuffer()
 endf
 
 fu s:UpdateLinks()
-    let s:currTab = tabpagenr()
-    tabdo windo do syntax
-    execute "tabn ".s:currTab
+    bufdo! set ei-=Syntax | do syntax
 endf
 
 fu s:OpenVisualSelection()
@@ -57,18 +58,23 @@ fu s:OpenVisualSelection()
 endf
 
 fu s:OpenPage(name)
+    if g:vimboy_tabmode
+        let s:cmd = "tabe"
+    else
+        let s:cmd = "e"
+    endif
     if !filereadable(b:vimboy_dir."/".a:name)
         execute "cd ".b:vimboy_dir
         let s:files = split(glob("*"),'[\r\n]\+')
         execute "cd -"
         for s:file in s:files
             if s:file =~ '\V\^'.escape(a:name, '/\').'\$'
-                execute "tabe ".b:vimboy_dir."/".fnameescape(s:file)
+                execute s:cmd." ".b:vimboy_dir."/".fnameescape(s:file)
                 return
             endif
         endfor
     endif
-    execute "tabe ".b:vimboy_dir."/".fnameescape(a:name)
+    execute s:cmd." ".b:vimboy_dir."/".fnameescape(a:name)
 endf
 
 fu s:OpenLinkUnderCursor()
@@ -116,8 +122,8 @@ endf
 
 fu DeletePage()
     call delete(expand('%'))
-    q!
-    do syntax
+    bd!
+    call s:UpdateLinks()
 endf
 
 " Is the cursor currently on a link?

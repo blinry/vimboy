@@ -9,7 +9,7 @@ if exists("g:loaded_vimboy")
         syntax match vimboyDeadlink /\[[^\]]*\]/
     endif
 
-    " Syntax highlight each filename of the vimboy directory
+    " Syntax highlight each filename in the vimboy directory.
     execute "cd ".b:vimboy_dir
     let s:files = split(glob("*"),'[\r\n]\+')
     execute "cd -"

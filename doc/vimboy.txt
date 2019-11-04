@@ -11,6 +11,12 @@ with [square brackets].
 The name stems from GNOME's Tomboy, which has similar features.
 
 ==============================================================================
+INSTALLATION                                             *vimboy-installation*
+
+Install using your favorite package manager. If you don't have a favorite, I'd
+suggest "vim-plug": https://github.com/junegunn/vim-plug
+
+==============================================================================
 CONFIGURATION                                           *vimboy-configuration*
 
 It is convenient to declare your wiki directories in your vimrc like this: >
@@ -38,7 +44,7 @@ the newly-created link.
 To follow a link, put the cursor on it and press <CR> in Normal mode, or
 double-click it. The linked page will open in a new tab.
 
-To delete a page, use <Leader>wd (by default: \wd - think of "wiki delete").
+To delete a page, use <Leader>wd (by default: \wd) - think of "wiki delete".
 
 ==============================================================================
 TIPS                                                             *vimboy-tips*
@@ -49,7 +55,7 @@ TIPS                                                             *vimboy-tips*
   set the 'filetype' to "markdown.vimboy" to get syntax highlighting for both.
 - Put your wiki directory under version control to get a history and make it
   shareable!
-- Vimboy's sister project "RoboBoy" lets you sync your wiki with Android
-  devices: https://github.com/blinry/roboboy
+- To use Vimboy on your phone, I'd suggest installing a terminal emulator,
+  like Termux for Android devices and just using Vim and Git directly.
 
  vim:tw=78:et:ft=help:norl:

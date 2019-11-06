@@ -33,11 +33,10 @@ endif
 fu s:InitBuffer()
     " Set base dir to dir the current file is in.
     let b:vimboy_dir = expand("%:p:h")."/"
-    call s:UpdateLinksInAllBuffers()
 
-    " When writing a file, refresh syntax in all windows,
+    " When writing a file, refresh syntax in all buffers,
     " because the links might have changed.
-    au BufWritePost <buffer> call s:UpdateLinksInAllBuffers()
+    au BufEnter <buffer> call s:UpdateLinks()
 
     " Define mappings
     vnoremap <buffer> <silent> <CR> :call <SID>OpenVisualSelection()<CR>
@@ -46,10 +45,8 @@ fu s:InitBuffer()
     nnoremap <buffer> <silent> <Leader>wd :call DeletePage()<CR>
 endf
 
-fu s:UpdateLinksInAllBuffers()
-    " We have to remove Syntax from the eventignore variable because :bufdo
-    " adds it automatically. We don't want that.
-    bufdo! set ei-=Syntax | do syntax
+fu s:UpdateLinks()
+    do syntax
 endf
 
 fu s:OpenVisualSelection()
@@ -127,7 +124,6 @@ endf
 fu DeletePage()
     call delete(expand('%'))
     bd!
-    call s:UpdateLinksInAllBuffers()
 endf
 
 " Is the cursor currently on a link?

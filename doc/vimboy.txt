@@ -5,8 +5,8 @@ Vimboy - a dead simple personal wiki plugin~
 With Vimboy, you can create personal, local wikis. In buffers with the
 'filetype' "vimboy", all file names that appear in the buffer link to the
 respective files in the same directory. In autolink-mode, this happens as
-soon as a filename appears in the text. Otherwise, surround the filenames
-with [square brackets].
+soon as a filename appears in the text. Otherwise, in bracket-mode, surround
+the filenames with [square brackets].
 
 The name stems from GNOME's Tomboy, which has similar features.
 
@@ -14,7 +14,7 @@ The name stems from GNOME's Tomboy, which has similar features.
 INSTALLATION                                             *vimboy-installation*
 
 Install using your favorite package manager. If you don't have a favorite, I'd
-suggest "vim-plug": https://github.com/junegunn/vim-plug
+suggest "minpac": https://github.com/k-takata/minpac
 
 ==============================================================================
 CONFIGURATION                                           *vimboy-configuration*
@@ -22,14 +22,17 @@ CONFIGURATION                                           *vimboy-configuration*
 It is convenient to declare your wiki directories in your vimrc like this: >
     au bufread,bufnewfile ~/path/to/wiki/* set ft=vimboy
 
-Set the variable *g:vimboy_autolink* to 0 to disable autolink-mode. Default is 1.
+Set the variable *g:vimboy_autolink* to 0 to disable autolink-mode. Default is 1. >
+    let g:vimboy_autolink=0
 
 Set the variable *g:vimboy_hl_deadlinks* to 1 to highlight dead links (links
-to non-existing files). Works only if autolink-mode is off. Default is 0.
+to non-existing files). Works only if autolink-mode is off. Default is 0. >
+    let g:vimboy_hl_deadlinks=1
 
 Set the variable *g:vimboy_tabmode* to 1 to open pages in new tabs instead of
 new buffers. But you should probably start using buffers directly instead.
-Default is 0.
+Default is 0. >
+    let g:vimboy_tabmode=1
 
 ==============================================================================
 USAGE                                                           *vimboy-usage*
@@ -42,7 +45,7 @@ create a dead link by surrounding the new page name with brackets, then follow
 the newly-created link.
 
 To follow a link, put the cursor on it and press <CR> in Normal mode, or
-double-click it. The linked page will open in a new tab.
+double-click it.
 
 To delete a page, use <Leader>wd (by default: \wd) - think of "wiki delete".
 
@@ -50,7 +53,7 @@ To delete a page, use <Leader>wd (by default: \wd) - think of "wiki delete".
 TIPS                                                             *vimboy-tips*
 
 - Filename completion (|i_CTRL-X_CTRL-F|) is awesome for completing links!
-- Use hard- or softlinks for page aliases.
+- Use hard- or softlinks of your OS for page aliases.
 - How you format your text is up to you! If you like to use Markdown, you can
   set the 'filetype' to "markdown.vimboy" to get syntax highlighting for both.
 - Put your wiki directory under version control to get a history and make it

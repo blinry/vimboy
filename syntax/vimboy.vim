@@ -4,7 +4,7 @@ highlight link vimboyDeadlink Error
 syntax clear vimboyLink
 syntax clear vimboyDeadlink
 
-if exists("g:loaded_vimboy")
+if exists("b:vimboy_dir")
     if g:vimboy_hl_deadlinks && ! g:vimboy_autolink
         syntax match vimboyDeadlink /\[[^\]]*\]/
     endif

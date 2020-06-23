@@ -11,7 +11,7 @@
 " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 " GNU General Public License for more details.
 
-" Only process this script once.
+" Only process this script once, but initialize the buffer every time.
 if exists("g:loaded_vimboy")
     call s:InitBuffer()
     finish
@@ -32,7 +32,7 @@ endif
 " We run this once per buffer.
 fu s:InitBuffer()
     " Set base dir to dir the current file is in.
-    let b:vimboy_dir = expand("%:p:h")."/"
+    let b:vimboy_dir = expand("%:p:h")
 
     " When writing a file, refresh syntax in all buffers,
     " because the links might have changed.
@@ -69,7 +69,7 @@ fu s:OpenPage(name)
         let l:files = split(glob("*"),'[\r\n]\+')
         execute "cd -"
         for l:file in l:files
-            if l:file =~ '\V\^'.escape(a:name, '/\').'\$'
+            if l:file =~? '\V\^'.escape(a:name, '/\').'\$'
                 execute l:editcmd." ".b:vimboy_dir."/".fnameescape(l:file)
                 return
             endif

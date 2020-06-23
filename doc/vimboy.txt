@@ -14,7 +14,7 @@ The name stems from GNOME's Tomboy, which has similar features.
 INSTALLATION                                             *vimboy-installation*
 
 Install using your favorite package manager. If you don't have a favorite, I'd
-suggest "vim-plug": https://github.com/junegunn/vim-plug
+suggest "minpac": https://github.com/k-takata/minpac
 
 ==============================================================================
 CONFIGURATION                                           *vimboy-configuration*
